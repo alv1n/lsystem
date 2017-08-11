@@ -16,7 +16,8 @@ A
 45.00  
 
 # Grammar
-- **Any letter**: Move forward
+- **Any capital letter**: Move forward
+- **Any lowercase letter**: used as variable
 - **+**: Increase angle by specified amount
 - **-**: Decrease angle
 - **[**: push to stack (position, angle)
