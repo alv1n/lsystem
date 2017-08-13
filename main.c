@@ -1,12 +1,9 @@
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <time.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "definitions.h"
+#include "draw.h"
 
 
 int main(int argc, char *argv[])
@@ -39,8 +36,7 @@ int main(int argc, char *argv[])
     ALLEGRO_EVENT event;
 
     /* Create a timer to refresh display */
-    //ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
-    ALLEGRO_TIMER *timer = al_create_timer(1.0);
+    ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
 
     al_register_event_source( queue, al_get_display_event_source(display));
     al_register_event_source( queue, al_get_keyboard_event_source());
@@ -48,6 +44,8 @@ int main(int argc, char *argv[])
 
     lsystem *l = calloc(1, sizeof(lsystem) );
     init(l);
+
+    line *lines = calloc(LINE_AMOUNT, sizeof(line) );
 
     al_start_timer(timer);
     while(1)
@@ -65,14 +63,20 @@ int main(int argc, char *argv[])
             {
                 goto exit;
             }
+            if(event.keyboard.keycode == ALLEGRO_KEY_N)
+            {
+                iterate(l);
+                printf("%s\nlen: %lu\n-----\n", l->current, strlen(l->current) );
+
+                al_flip_display();
+                convert(l, lines);
+                al_clear_to_color(al_map_rgb(255,255,255));
+                draw2(lines);
+            }
         }
         if(event.type == ALLEGRO_EVENT_TIMER)
         {
-            iterate(l);
-            printf("%s\n-----\n", l->current);
 
-            al_flip_display();
-            al_clear_to_color(al_map_rgb(255,255,255));
             al_start_timer(timer);
         }
     }
