@@ -1,7 +1,8 @@
 #ifndef draw
 #define draw
 
-#define STACK_SIZE 100
+#define STACK_SIZE 10000
+#define LINE_AMOUNT 100000
 
 typedef struct
 {
@@ -19,5 +20,10 @@ typedef struct
     point current;
 }state;
 
+extern void convert(lsystem *l, line *lines);
+
+extern void draw2(line *lines);
+
+extern void draw3(line *lines);
 
 #endif
