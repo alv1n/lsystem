@@ -20,7 +20,7 @@ void init(lsystem *l)
     fgets(l->current, STRING_SIZE, f);
     fgets(rules, MAX_STRING, f);
     fgets(num, MAX_STRING, f);
-    l->angle = atof(num);
+    l->angle = atof(num) / 360 * 2 * PI;
 
     rule *start= l->rules;
     for(int i = 0; rules[i] != '\0' && rules[i] != '\n'; i++)
